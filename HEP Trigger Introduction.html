@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Don't Miss the Good Stuff — HEP Triggering</title>
+<link rel="stylesheet" href="tokens/fonts.css">
+<link rel="stylesheet" href="tokens/colors.css">
+<link rel="stylesheet" href="tokens/typography.css">
+<link rel="stylesheet" href="tokens/spacing.css">
+<link rel="stylesheet" href="tokens/base.css">
+<link rel="stylesheet" href="tokens/components.css">
+<style>
+deck-stage:not(:defined) { visibility: hidden; }
+
+:root {
+  --type-display:  92px;
+  --type-title:    68px;
+  --type-subtitle: 48px;
+  --type-body:     34px;
+  --type-small:    28px;
+  --type-tiny:     24px;
+  --pad-x:         110px;
+  --pad-top:       88px;
+  --pad-bottom:    80px;
+  --gap-title:     48px;
+  --gap-item:      26px;
+}
+
+section {
+  width: 1920px; height: 1080px;
+  display: flex; flex-direction: column;
+  font-family: var(--font-sans);
+  color: var(--text-strong);
+  background: var(--neutral-0);
+  overflow: hidden;
+  position: relative;
+}
+.pad { padding: var(--pad-top) var(--pad-x) var(--pad-bottom); }
+.slide-dark  { background: var(--blue-950) !important; }
+.slide-mid   { background: var(--blue-900) !important; }
+.slide-light { background: var(--neutral-50) !important; }
+
+/* eyebrow */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--font-mono); font-size: var(--type-tiny);
+  font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--blue-600);
+}
+.eyebrow::before { content:""; width:36px; height:2px; background:var(--accent); display:block; flex-shrink:0; }
+.eyebrow-lt { color: var(--gold-300); }
+.eyebrow-lt::before { background: var(--gold-400); }
+
+/* titles */
+.slide-title {
+  font-family: var(--font-display); font-size: var(--type-title);
+  font-weight: 700; letter-spacing: -0.02em; line-height: 1.05;
+  color: var(--text-strong);
+}
+.slide-title-lt {
+  font-family: var(--font-display); font-size: var(--type-title);
+  font-weight: 700; letter-spacing: -0.02em; line-height: 1.05;
+  color: var(--neutral-0);
+}
+.title-rule { width:60px; height:3px; background:var(--accent); border-radius:2px; margin-top:2px; }
+.title-rule-lt { width:60px; height:3px; background:var(--gold-400); border-radius:2px; margin-top:2px; }
+
+.slide-header { display:flex; flex-direction:column; gap:18px; margin-bottom: var(--gap-title); }
+
+/* bullets */
+.bullets { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap: var(--gap-item); }
+.bullets li {
+  font-size: var(--type-body); line-height: 1.45;
+  color: var(--text-body); padding-left: 30px; position: relative;
+}
+.bullets li::before {
+  content:""; position:absolute; left:0; top:0.55em;
+  width:9px; height:9px; border-radius:50%; background:var(--accent);
+}
+.bullets-lt li { color: var(--blue-100); }
+.bullets-sm li { font-size: var(--type-small); }
+
+/* grid layouts */
+.two-col  { display:grid; grid-template-columns:1fr 1fr; gap:80px; flex:1; }
+.three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:56px; flex:1; }
+
+/* tables */
+.dtable { width:100%; border-collapse:collapse; font-size: var(--type-small); }
+.dtable th {
+  font-family: var(--font-mono); font-size:24px; font-weight:600;
+  letter-spacing:0.08em; text-transform:uppercase; color:var(--blue-700);
+  border-bottom:2px solid var(--blue-200); padding:16px 20px; text-align:left;
+}
+.dtable td {
+  padding:16px 20px; border-bottom:1px solid var(--neutral-200);
+  color:var(--text-body); font-size:var(--type-small); line-height:1.4; vertical-align:top;
+}
+.dtable tr:last-child td { border-bottom:none; }
+.dtable td:first-child { font-weight:600; color:var(--text-strong); }
+.dtable-dk th { border-color: var(--blue-700); color:var(--blue-300); }
+.dtable-dk td { border-color: var(--blue-800); color:var(--blue-200); }
+.dtable-dk td:first-child { color:var(--neutral-0); }
+.td-mono { font-family:var(--font-mono) !important; font-size:24px !important; color:var(--blue-600) !important; }
+
+/* quote */
+.quote-block { border-left:4px solid var(--accent); padding-left:36px; }
+.quote-text  { font-size:30px; font-style:italic; color:var(--text-body); line-height:1.5; }
+
+/* logo footer */
+.logo { position:absolute; bottom:34px; right:var(--pad-x); height:40px; opacity:0.85; }
+
+/* animations */
+@media (prefers-reduced-motion: no-preference) {
+  [data-deck-active] .f1 { animation: fup .45s cubic-bezier(.16,1,.3,1) both; }
+  [data-deck-active] .f2 { animation: fup .45s .1s cubic-bezier(.16,1,.3,1) both; }
+  [data-deck-active] .f3 { animation: fup .45s .2s cubic-bezier(.16,1,.3,1) both; }
+  [data-deck-active] .f4 { animation: fup .45s .3s cubic-bezier(.16,1,.3,1) both; }
+}
+@keyframes fup { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
+sup { font-size: 0.9em; vertical-align: super; line-height: 0; }
+sub { font-size: 0.9em; vertical-align: sub; line-height: 0; }
+
+/* stat block */
+.stat-val { font-family:var(--font-display); font-size:96px; font-weight:700; line-height:1; letter-spacing:-0.03em; color:var(--blue-500); }
+.stat-unit { font-family:var(--font-mono); font-size:48px; font-weight:600; color:var(--gold-400); }
+.stat-lbl  { font-size:var(--type-small); color:var(--text-muted); line-height:1.3; }
+
+/* card */
+.card { background:var(--neutral-0); border:1px solid var(--neutral-200); border-radius:12px; padding:36px; display:flex; flex-direction:column; gap:18px; box-shadow:var(--shadow-sm); }
+.card-dk { background:var(--blue-800); border:1px solid var(--blue-700); border-radius:12px; padding:36px; display:flex; flex-direction:column; gap:18px; }
+
+/* numbered list (takeaways) */
+.numbered { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:32px; counter-reset:n; }
+.numbered li {
+  counter-increment:n; font-size:var(--type-body); line-height:1.4;
+  color:var(--blue-100); padding-left:72px; position:relative;
+}
+.numbered li::before {
+  content:counter(n); position:absolute; left:0; top:-4px;
+  font-family:var(--font-mono); font-size:var(--type-small); font-weight:700;
+  color:var(--gold-400); background:var(--blue-800); border:1px solid var(--blue-700);
+  width:48px; height:48px; border-radius:8px; display:flex; align-items:center; justify-content:center;
+  line-height:1;
+}
+</style>
+</head>
+<body>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+
+<deck-stage width="1920" height="1080">
+
+<!-- ══════════════════════════════════════════════════════════════
+  01 · TITLE
+══════════════════════════════════════════════════════════════ -->
+<section data-label="Title" class="slide-dark"
+  style="padding:80px var(--pad-x); justify-content:space-between;">
+  <!-- top bar -->
+  <div style="display:flex; align-items:center; gap:24px;" class="f1">
+    <img src="assets/intrepid-logo-white.png" style="height:46px; opacity:.9;">
+    <div style="width:1px;height:36px;background:var(--blue-700)"></div>
+    <span style="font-family:var(--font-mono);font-size:24px;color:var(--blue-400);letter-spacing:.07em;text-transform:uppercase;">CPAN PhD Network</span>
+  </div>
+  <!-- main -->
+  <div style="display:flex;flex-direction:column;gap:32px;" class="f2">
+    <span class="eyebrow eyebrow-lt">An introduction to triggering in HEP</span>
+    <h1 style="font-family:var(--font-display);font-size:var(--type-display);font-weight:700;letter-spacing:-.03em;line-height:1.02;color:var(--neutral-0);">
+      Don't Miss<br>the Good Stuff
+    </h1>
+    <div style="width:80px;height:4px;background:var(--gold-400);border-radius:2px;"></div>
+    <p style="font-size:36px;color:var(--blue-200);line-height:1.5;max-width:1100px;">
+      Some of the most ingenious engineering in experimental HEP has nothing to do with the detector — it's about deciding, in <em style="font-style:normal;color:var(--gold-300);">microseconds</em>, whether what just happened is worth keeping.
+    </p>
+  </div>
+  <!-- footer -->
+  <div style="display:flex;align-items:center;justify-content:space-between;" class="f3">
+    <span style="font-family:var(--font-mono);font-size:var(--type-small);color:var(--blue-400);letter-spacing:.04em;">45 min · Mixed HEP audience</span>
+    <img src="assets/erc-eu-funding.png" style="height:52px;opacity:.85;">
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  02 · THE RARE VS. THE MUNDANE
+══════════════════════════════════════════════════════════════ -->
+<section data-label="The rare vs. the mundane" class="slide-dark pad">
+  <div class="slide-header f1">
+    <span class="eyebrow eyebrow-lt">Hook &amp; Motivation</span>
+    <h2 class="slide-title-lt">The rare vs. the mundane</h2>
+    <div class="title-rule-lt"></div>
+  </div>
+  <div class="two-col f2" style="align-items:start;gap:100px;">
+    <ul class="bullets bullets-lt" style="margin-top:8px;">
+      <li>Proton bunches cross <strong style="color:var(--gold-400);font-family:var(--font-mono);">40 MHz</strong> — forty million times per second</li>
+      <li>Each crossing produces ~40 simultaneous pp collisions (<strong style="color:var(--gold-400);">pileup</strong>)</li>
+      <li>The vast majority are <em style="font-style:normal;color:var(--blue-400);">soft QCD</em> — elastic scattering, minimum bias — uninteresting</li>
+      <li>Processes we care about (Higgs, SUSY, rare B decays…) are <strong style="color:var(--gold-400);">orders of magnitude rarer</strong></li>
+    </ul>
+    <div style="display:flex;flex-direction:column;gap:36px;">
+      <div style="background:var(--blue-800);border-radius:16px;padding:52px;display:flex;flex-direction:column;align-items:center;gap:16px;border:1px solid var(--blue-700);">
+        <div style="font-family:var(--font-mono);font-size:28px;color:var(--blue-300);letter-spacing:.05em;">σ(H→γγ) / σ(inelastic)</div>
+        <div style="font-family:var(--font-display);font-size:96px;font-weight:700;color:var(--gold-400);letter-spacing:-.02em;line-height:1;">
+          10<sup style="font-size:54px;vertical-align:super;">−9</sup>
+        </div>
+        <div style="font-size:28px;color:var(--blue-300);">one signal per billion collisions</div>
+      </div>
+      <div class="quote-block" style="border-color:var(--gold-400);">
+        <p class="quote-text" style="color:var(--blue-200);">"The LHC is like a firework factory where 99.9999999% of what comes out is confetti. The trigger is your eye trained to spot the one rocket."</p>
+      </div>
+    </div>
+  </div>
+  <img src="assets/intrepid-logo-white.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  03 · WHY YOU CAN'T RECORD EVERYTHING
+══════════════════════════════════════════════════════════════ -->
+<section data-label="Why you can't just record everything" class="slide-dark pad">
+  <div class="slide-header f1">
+    <span class="eyebrow eyebrow-lt">The Storage Problem</span>
+    <h2 class="slide-title-lt">Why you can't just record everything</h2>
+    <div class="title-rule-lt"></div>
+  </div>
+  <div class="three-col f2" style="align-items:stretch;">
+    <div style="background:var(--blue-800);border-radius:16px;padding:48px;display:flex;flex-direction:column;gap:16px;border:1px solid var(--blue-700);">
+      <span style="font-family:var(--font-mono);font-size:24px;color:var(--blue-300);letter-spacing:.08em;text-transform:uppercase;">Event size</span>
+      <div style="font-family:var(--font-display);font-size:96px;font-weight:700;color:var(--neutral-0);line-height:1;letter-spacing:-.03em;">1–2</div>
+      <div style="font-family:var(--font-mono);font-size:48px;font-weight:600;color:var(--gold-400);">MB</div>
+      <p style="font-size:28px;color:var(--blue-200);line-height:1.4;">per ATLAS/CMS event, after zero-suppression</p>
+    </div>
+    <div style="background:var(--blue-800);border-radius:16px;padding:48px;display:flex;flex-direction:column;gap:16px;border:1px solid var(--blue-700);">
+      <span style="font-family:var(--font-mono);font-size:24px;color:var(--blue-300);letter-spacing:.08em;text-transform:uppercase;">Raw throughput</span>
+      <div style="font-family:var(--font-display);font-size:96px;font-weight:700;color:var(--neutral-0);line-height:1;letter-spacing:-.03em;">60</div>
+      <div style="font-family:var(--font-mono);font-size:48px;font-weight:600;color:var(--gold-400);">TB/s</div>
+      <p style="font-size:28px;color:var(--blue-200);line-height:1.4;">40 MHz × 1.5 MB — you'd fill all world disk in hours</p>
+    </div>
+    <div style="background:var(--blue-700);border-radius:16px;padding:48px;display:flex;flex-direction:column;gap:16px;border:2px solid var(--gold-400);">
+      <span style="font-family:var(--font-mono);font-size:24px;color:var(--gold-300);letter-spacing:.08em;text-transform:uppercase;">Storage budget</span>
+      <div style="font-family:var(--font-display);font-size:96px;font-weight:700;color:var(--gold-400);line-height:1;letter-spacing:-.03em;">1–2</div>
+      <div style="font-family:var(--font-mono);font-size:48px;font-weight:600;color:var(--neutral-0);">GB/s</div>
+      <p style="font-size:28px;color:var(--blue-100);line-height:1.4;">Required reduction factor: <span style="font-family:var(--font-mono);color:var(--gold-300);">~10<sup>5</sup></span></p>
+    </div>
+  </div>
+  <p class="f3" style="font-size:30px;color:var(--blue-300);margin-top:32px;font-style:italic;">This is not solvable with more money or faster disks — it is a fundamental constraint.</p>
+  <img src="assets/intrepid-logo-white.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  04 · WHAT IS A TRIGGER?
+══════════════════════════════════════════════════════════════ -->
+<section data-label="Definition and goals" class="slide-light pad">
+  <div class="slide-header f1">
+    <span class="eyebrow">The Trigger</span>
+    <h2 class="slide-title">Definition and goals</h2>
+    <div class="title-rule"></div>
+  </div>
+  <div class="two-col f2" style="align-items:start;gap:100px;">
+    <div style="display:flex;flex-direction:column;gap:32px;">
+      <div style="background:var(--blue-50);border-radius:14px;padding:40px 48px;border-left:5px solid var(--blue-500);">
+        <p style="font-size:32px;line-height:1.5;color:var(--blue-900);">A trigger is a <strong>real-time decision system</strong> that selects events to record.</p>
+        <p style="font-family:var(--font-mono);font-size:28px;color:var(--blue-600);margin-top:20px;">Trigger = real-time classification under extreme resource constraints</p>
+      </div>
+      <ul class="bullets">
+        <li><strong>Fast</strong> — keep up with the beam crossing rate</li>
+        <li><strong>Selective</strong> — high background rejection</li>
+        <li><strong>Efficient</strong> — retain signal events</li>
+        <li><strong>Flexible</strong> — configurable for many simultaneous physics goals</li>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px;">
+      <p style="font-family:var(--font-mono);font-size:24px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-600);">Two distinct technical challenges</p>
+      <table class="dtable" style="background:var(--neutral-0);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm);">
+        <thead><tr><th>Challenge</th><th>Requirement</th></tr></thead>
+        <tbody>
+          <tr><td>Rate reduction</td><td><span style="font-family:var(--font-mono);color:var(--blue-600);">40 MHz → O(kHz)</span></td></tr>
+          <tr><td>Latency</td><td>Decision must fit within front-end readout buffer</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <img src="assets/intrepid-logo.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  05 · DIVIDE AND CONQUER
+══════════════════════════════════════════════════════════════ -->
+<section data-label="Divide and conquer: trigger levels" class="slide-light pad">
+  <div class="slide-header f1">
+    <span class="eyebrow">Architecture</span>
+    <h2 class="slide-title">Divide and conquer: trigger levels</h2>
+    <div class="title-rule"></div>
+  </div>
+  <!-- Funnel -->
+  <div class="f2" style="flex:1;display:flex;flex-direction:column;gap:44px;justify-content:center;">
+    <div style="display:flex;align-items:center;justify-content:center;gap:0;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:160px;text-align:center;">
+        <div style="font-family:var(--font-mono);font-size:44px;font-weight:700;color:var(--blue-600);line-height:1;">40 MHz</div>
+        <div style="font-size:24px;color:var(--text-muted);">bunch crossings</div>
+      </div>
+      <div style="font-size:52px;color:var(--neutral-300);padding:0 24px;">→</div>
+      <div style="background:var(--blue-900);border-radius:14px;padding:32px 48px;text-align:center;display:flex;flex-direction:column;gap:10px;min-width:260px;">
+        <div style="font-family:var(--font-display);font-size:34px;font-weight:700;color:var(--neutral-0);">Level-1</div>
+        <div style="font-family:var(--font-mono);font-size:24px;color:var(--blue-200);">Hardware · FPGAs / ASICs</div>
+        <div style="font-family:var(--font-mono);font-size:24px;color:var(--blue-300);">fixed latency · coarse info</div>
+      </div>
+      <div style="font-size:52px;color:var(--neutral-300);padding:0 24px;">→</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:160px;text-align:center;">
+        <div style="font-family:var(--font-mono);font-size:44px;font-weight:700;color:var(--gold-500);line-height:1;">~100 kHz</div>
+        <div style="font-size:24px;color:var(--text-muted);">L1 accepts</div>
+      </div>
+      <div style="font-size:52px;color:var(--neutral-300);padding:0 24px;">→</div>
+      <div style="background:var(--blue-700);border-radius:14px;padding:32px 48px;text-align:center;display:flex;flex-direction:column;gap:10px;min-width:260px;">
+        <div style="font-family:var(--font-display);font-size:34px;font-weight:700;color:var(--neutral-0);">HLT</div>
+        <div style="font-family:var(--font-mono);font-size:24px;color:var(--blue-200);">Software · CPU farm</div>
+        <div style="font-family:var(--font-mono);font-size:24px;color:var(--blue-300);">full reco · O(100 ms)</div>
+      </div>
+      <div style="font-size:52px;color:var(--neutral-300);padding:0 24px;">→</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:160px;text-align:center;">
+        <div style="font-family:var(--font-mono);font-size:44px;font-weight:700;color:var(--blue-500);line-height:1;">~1–3 kHz</div>
+        <div style="font-size:24px;color:var(--text-muted);">permanent storage</div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center;">
+      <div style="background:var(--neutral-0);border:1px solid var(--neutral-200);border-radius:10px;padding:20px 48px;display:flex;align-items:center;gap:20px;box-shadow:var(--shadow-sm);">
+        <span style="font-family:var(--font-mono);font-size:26px;font-weight:600;color:var(--blue-600);">DAQ</span>
+        <span style="font-size:28px;color:var(--text-muted);">—</span>
+        <span style="font-size:28px;color:var(--text-body);">Data Acquisition System buffers and ships data between L1 and HLT</span>
+      </div>
+    </div>
+    <ul class="bullets bullets-sm f3" style="max-width:1400px;margin:0 auto;">
+      <li>The problem is too hard to solve in one step — split into <strong>levels</strong>, each doing what it does best</li>
+      <li>L1: coarse, fast, custom silicon &nbsp;·&nbsp; HLT: full reconstruction, commodity CPUs</li>
+    </ul>
+  </div>
+  <img src="assets/intrepid-logo.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  06 · THE HARDWARE GATEKEEPER
+══════════════════════════════════════════════════════════════ -->
+<section data-label="The hardware gatekeeper" class="pad">
+  <div class="slide-header f1">
+    <span class="eyebrow">Level-1 Trigger</span>
+    <h2 class="slide-title">The hardware gatekeeper</h2>
+    <div class="title-rule"></div>
+  </div>
+  <div class="two-col f2" style="align-items:start;gap:80px;">
+    <ul class="bullets">
+      <li>L1 must decide in <strong>fixed latency</strong> — CMS: <span style="font-family:var(--font-mono);color:var(--blue-600);font-weight:700;">3.8 μs</span> from collision to decision</li>
+      <li>Data is held in <strong>pipeline buffers</strong> in detector front-end electronics during this time</li>
+      <li>Uses <strong>coarse, fast</strong> information: calorimeter clusters (e, γ, jets, MET) + muon track stubs</li>
+      <li>Implemented in <strong>custom FPGAs and ASICs</strong> — no commercial off-the-shelf hardware</li>
+      <li>Output: list of "trigger objects" — e.g. <span style="font-family:var(--font-mono);font-size:28px;color:var(--blue-600);">e⁻ candidate, E<sub>T</sub> &gt; 30 GeV at (η, φ)</span></li>
+      <li>L1 accept rate: <span style="font-family:var(--font-mono);font-weight:700;color:var(--blue-600);">~100 kHz</span> (ATLAS/CMS)</li>
+    </ul>
+    <div style="display:flex;flex-direction:column;gap:28px;justify-content:center;">
+      <div style="background:var(--blue-50);border-radius:14px;padding:44px;display:flex;flex-direction:column;gap:18px;">
+        <span style="font-family:var(--font-mono);font-size:24px;color:var(--blue-600);letter-spacing:.08em;text-transform:uppercase;">CMS L1 latency budget</span>
+        <div style="display:flex;align-items:baseline;gap:16px;">
+          <span style="font-family:var(--font-display);font-size:96px;font-weight:700;color:var(--blue-600);letter-spacing:-.03em;line-height:1;">3.8</span>
+          <span style="font-family:var(--font-mono);font-size:48px;font-weight:600;color:var(--gold-500);">μs</span>
+        </div>
+        <p style="font-size:28px;color:var(--text-muted);line-height:1.4;">From collision to L1 accept signal</p>
+      </div>
+      <div class="quote-block">
+        <p class="quote-text">"L1 is like a bouncer at a club who has 4 microseconds to look at your shoes and decide if you get in. No time to check your ID."</p>
+      </div>
+    </div>
+  </div>
+  <img src="assets/intrepid-logo.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  07 · INSIDE AN FPGA TRIGGER
+══════════════════════════════════════════════════════════════ -->
+<section data-label="How does L1 actually work?" class="pad">
+  <div class="slide-header f1">
+    <span class="eyebrow">Level-1 Trigger</span>
+    <h2 class="slide-title">How does L1 actually work?</h2>
+    <div class="title-rule"></div>
+  </div>
+  <div class="two-col f2" style="align-items:start;gap:80px;">
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div style="background:var(--neutral-100);border-radius:10px;padding:22px 32px;font-size:28px;color:var(--text-body);"><span style="font-family:var(--font-mono);color:var(--blue-600);font-weight:600;">Detector signals</span> → trigger primitives</div>
+      <div style="display:flex;justify-content:center;"><span style="font-size:32px;color:var(--neutral-400);">↓</span></div>
+      <div style="background:var(--blue-50);border-radius:10px;padding:22px 32px;font-size:28px;color:var(--text-body);">Local / regional processing → clusters, track stubs</div>
+      <div style="display:flex;justify-content:center;"><span style="font-size:32px;color:var(--neutral-400);">↓</span></div>
+      <div style="background:var(--blue-100);border-radius:10px;padding:22px 32px;font-size:28px;color:var(--blue-900);font-weight:600;"><span style="font-family:var(--font-mono);">Global Trigger (GT)</span> — applies the <strong>menu</strong></div>
+      <div style="display:flex;justify-content:center;"><span style="font-size:32px;color:var(--neutral-400);">↓</span></div>
+      <div style="background:var(--gold-50);border-radius:10px;padding:22px 32px;font-size:28px;color:var(--gold-800);font-weight:600;border:2px solid var(--gold-300);">Any condition satisfied → <span style="font-family:var(--font-mono);">L1 ACCEPT</span> → readout all subdetectors</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px;">
+      <p style="font-family:var(--font-mono);font-size:24px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-600);">Example menu conditions (CMS-style)</p>
+      <table class="dtable" style="background:var(--neutral-0);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm);">
+        <thead><tr><th>Seed name</th><th>Condition</th></tr></thead>
+        <tbody>
+          <tr><td class="td-mono">SingleEle32</td><td>Single electron, E<sub>T</sub> &gt; 32 GeV</td></tr>
+          <tr><td class="td-mono">DoubleMu7</td><td>Two muons, each p<sub>T</sub> &gt; 7 GeV</td></tr>
+          <tr><td class="td-mono">MET200</td><td>Missing E<sub>T</sub> &gt; 200 GeV</td></tr>
+        </tbody>
+      </table>
+      <ul class="bullets bullets-sm" style="margin-top:8px;">
+        <li>Implemented in <strong>custom FPGAs</strong> — logic evaluated in nanoseconds</li>
+        <li>All ~500 seeds evaluated <strong>simultaneously</strong> in parallel hardware</li>
+      </ul>
+    </div>
+  </div>
+  <img src="assets/intrepid-logo.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  08 · THE TRIGGER MENU
+══════════════════════════════════════════════════════════════ -->
+<section data-label="The physics program in a lookup table" class="slide-light pad">
+  <div class="slide-header f1">
+    <span class="eyebrow">Trigger Menu</span>
+    <h2 class="slide-title">The physics program in a lookup table</h2>
+    <div class="title-rule"></div>
+  </div>
+  <div class="two-col f2" style="align-items:start;gap:100px;">
+    <div style="display:flex;flex-direction:column;gap:32px;">
+      <div style="background:var(--blue-900);border-radius:14px;padding:44px;display:flex;flex-direction:column;gap:14px;">
+        <p style="font-size:30px;line-height:1.5;color:var(--blue-100);">The trigger menu <strong style="color:var(--gold-400);">is the experiment's physics programme</strong> encoded in real-time logic.</p>
+        <p style="font-family:var(--font-mono);font-size:26px;color:var(--blue-300);">~O(500) trigger seeds / paths in current LHC experiments</p>
+      </div>
+      <ul class="bullets">
+        <li>Each path has a <strong>prescale</strong> — keep 1-in-N events to manage rates</li>
+        <li>What you don't trigger on, you <strong>lose forever</strong></li>
+        <li>The menu must be agreed <em style="font-style:normal;color:var(--blue-600);">before</em> data-taking — a physics/political process</li>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px;">
+      <table class="dtable" style="background:var(--neutral-0);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm);">
+        <thead><tr><th>Type</th><th>Examples</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span style="font-family:var(--font-mono);font-size:24px;color:var(--blue-600);background:var(--blue-50);padding:4px 10px;border-radius:4px;">Unprescaled</span></td>
+            <td>H→γγ, di-muon resonances, high-p<sub>T</sub> jets</td>
+            <td>Primary physics</td>
+          </tr>
+          <tr>
+            <td><span style="font-family:var(--font-mono);font-size:24px;color:var(--text-muted);background:var(--neutral-100);padding:4px 10px;border-radius:4px;">Prescaled</span></td>
+            <td>Minimum bias, low-p<sub>T</sub> objects</td>
+            <td>Calibration, exotic searches</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <img src="assets/intrepid-logo.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  09 · HIGH-LEVEL TRIGGER
+══════════════════════════════════════════════════════════════ -->
+<section data-label="Software reconstruction at 100 kHz input" class="pad">
+  <div class="slide-header f1">
+    <span class="eyebrow">High-Level Trigger</span>
+    <h2 class="slide-title">Software reconstruction at 100 kHz input</h2>
+    <div class="title-rule"></div>
+  </div>
+  <div class="two-col f2" style="align-items:start;gap:80px;">
+    <ul class="bullets">
+      <li>HLT runs on a CPU farm: CMS <span style="font-family:var(--font-mono);color:var(--blue-600);">~30,000 cores</span>, ATLAS similar scale</li>
+      <li>At 100 kHz input → <span style="font-family:var(--font-mono);color:var(--blue-600);">~O(300 ms)</span> per event on average</li>
+      <li>Runs a <strong>partial version of offline reconstruction</strong>: tracking, clustering, jet finding, b-tagging</li>
+      <li>Key trick: <strong>seeded reconstruction</strong> — only reconstruct in the RoI flagged by L1</li>
+      <li>At each step, partial results can <strong>reject early</strong> → save CPU time</li>
+      <li>Output rate: <span style="font-family:var(--font-mono);font-weight:700;color:var(--blue-600);">~1–2 kHz</span> → permanent storage</li>
+    </ul>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div style="background:var(--gold-50);border-radius:10px;padding:22px 36px;display:flex;align-items:center;gap:20px;border:1px solid var(--gold-200);">
+        <span style="font-family:var(--font-mono);font-size:26px;font-weight:700;color:var(--gold-700);">L1 Accept</span>
+        <span style="font-size:26px;color:var(--text-muted);">100 kHz input</span>
+      </div>
+      <div style="display:flex;justify-content:center;"><span style="font-size:32px;color:var(--neutral-400);">↓</span></div>
+      <div style="background:var(--blue-50);border-radius:10px;padding:22px 36px;font-size:28px;color:var(--text-body);">Partial reconstruction in <strong>Region of Interest (RoI)</strong></div>
+      <div style="display:flex;justify-content:center;"><span style="font-size:32px;color:var(--neutral-400);">↓</span></div>
+      <div style="background:var(--blue-100);border-radius:10px;padding:22px 36px;font-size:28px;color:var(--text-body);">Full reconstruction (if not rejected early)</div>
+      <div style="display:flex;justify-content:center;"><span style="font-size:32px;color:var(--neutral-400);">↓</span></div>
+      <div style="background:var(--blue-900);border-radius:10px;padding:22px 36px;display:flex;align-items:center;gap:20px;">
+        <span style="font-family:var(--font-mono);font-size:26px;font-weight:700;color:var(--gold-400);">Storage</span>
+        <span style="font-size:26px;color:var(--blue-300);">1–2 kHz</span>
+      </div>
+    </div>
+  </div>
+  <img src="assets/intrepid-logo.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  10 · TRACKING AT THE HLT
+══════════════════════════════════════════════════════════════ -->
+<section data-label="The most expensive step — and the most powerful" class="slide-light pad">
+  <div class="slide-header f1">
+    <span class="eyebrow">High-Level Trigger</span>
+    <h2 class="slide-title">The most expensive step — and the most powerful</h2>
+    <div class="title-rule"></div>
+  </div>
+  <div class="two-col f2" style="align-items:start;gap:100px;">
+    <ul class="bullets">
+      <li>Track reconstruction is a <strong>combinatorial problem</strong> — scales badly with pileup</li>
+      <li>Inner tracker: <span style="font-family:var(--font-mono);color:var(--blue-600);">~O(10<sup>8</sup>) channels</span> → billions of hits per event at high pileup</li>
+      <li>HLT uses <strong>fast track finding</strong>: road-based, Hough transform, cellular automaton</li>
+      <li>Tracking unlocks: <strong>impact parameter</strong> → b-tagging, τ-tagging, displaced vertices</li>
+    </ul>
+    <div style="display:flex;flex-direction:column;gap:28px;justify-content:center;">
+      <div style="background:var(--blue-900);border-radius:14px;padding:48px;display:flex;flex-direction:column;gap:20px;">
+        <span style="font-family:var(--font-mono);font-size:24px;color:var(--blue-300);letter-spacing:.08em;text-transform:uppercase;">HLT b-tagging performance</span>
+        <div style="display:flex;gap:60px;align-items:flex-end;">
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <span style="font-family:var(--font-display);font-size:80px;font-weight:700;color:var(--gold-400);line-height:1;">70%</span>
+            <span style="font-size:26px;color:var(--blue-200);">b-jet efficiency</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <span style="font-family:var(--font-display);font-size:80px;font-weight:700;color:var(--blue-400);line-height:1;">&lt;1%</span>
+            <span style="font-size:26px;color:var(--blue-200);">light-jet fake rate</span>
+          </div>
+        </div>
+      </div>
+      <div class="quote-block" style="border-color:var(--blue-400);">
+        <p class="quote-text">"Tracking at the HLT is the difference between knowing an electron exists and knowing where it came from."</p>
+      </div>
+    </div>
+  </div>
+  <img src="assets/intrepid-logo.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  11 · ATLAS & CMS
+══════════════════════════════════════════════════════════════ -->
+<section data-label="General purpose detectors — keeping all options open" class="pad">
+  <div class="slide-header f1">
+    <span class="eyebrow">Case Study 1</span>
+    <h2 class="slide-title">General purpose detectors — keeping all options open</h2>
+    <div class="title-rule"></div>
+  </div>
+  <div class="two-col f2" style="align-items:start;gap:80px;">
+    <div style="display:flex;flex-direction:column;gap:28px;">
+      <ul class="bullets">
+        <li>Both designed to discover the <strong>unexpected</strong> → broad menu philosophy</li>
+        <li><strong>ATLAS:</strong> L1Calo + L1Muon + L1Topo (topological correlations) → ~100 kHz → HLT → ~1.5 kHz</li>
+        <li><strong>CMS:</strong> Time-multiplexed Layer-1 + Global Trigger → ~100 kHz → HLT → ~2 kHz</li>
+        <li>Key challenge: <strong>MET triggers</strong> — need full calorimeter sum, very sensitive to noise</li>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px;">
+      <p style="font-family:var(--font-mono);font-size:24px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-600);">Key Higgs triggers</p>
+      <table class="dtable" style="background:var(--neutral-0);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm);">
+        <thead><tr><th>Channel</th><th>Trigger seed</th></tr></thead>
+        <tbody>
+          <tr><td>H→ZZ→4ℓ</td><td>Isolated lepton seeds</td></tr>
+          <tr><td>H→γγ</td><td>Diphoton seeds</td></tr>
+          <tr><td>H→ττ</td><td>τ + τ coincidence seeds</td></tr>
+        </tbody>
+      </table>
+      <div style="background:var(--blue-50);border-radius:12px;padding:32px;border:1px solid var(--blue-200);">
+        <p style="font-size:28px;color:var(--blue-800);line-height:1.5;">The trigger menu is a delicate balance: broad enough to catch the unexpected, tight enough to stay within rate budgets.</p>
+      </div>
+    </div>
+  </div>
+  <img src="assets/intrepid-logo.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  12 · LHCb
+══════════════════════════════════════════════════════════════ -->
+<section data-label="B physics — a completely different philosophy" class="slide-dark pad">
+  <div class="slide-header f1">
+    <span class="eyebrow eyebrow-lt">Case Study 2</span>
+    <h2 class="slide-title-lt">B physics — a completely different philosophy</h2>
+    <div class="title-rule-lt"></div>
+  </div>
+  <div class="two-col f2" style="align-items:start;gap:80px;">
+    <div style="display:flex;flex-direction:column;gap:28px;">
+      <ul class="bullets bullets-lt">
+        <li>LHCb is a <strong style="color:var(--neutral-0);">forward spectrometer</strong> optimised for B-physics and CP violation</li>
+        <li>Key signature: <strong style="color:var(--gold-400);">displaced vertices</strong> from B decay (cτ ~ 500 μm)</li>
+        <li>Lower luminosity than ATLAS/CMS → different constraints on trigger design</li>
+      </ul>
+      <div style="background:var(--blue-800);border-radius:14px;padding:36px;border:1px solid var(--blue-700);">
+        <p style="font-size:30px;color:var(--blue-100);line-height:1.5;font-style:italic;">"LHCb's Run 3 trigger is arguably the most radical change in HEP data acquisition in 20 years."</p>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px;">
+      <p style="font-family:var(--font-mono);font-size:24px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-300);">Evolution of the LHCb trigger</p>
+      <table class="dtable dtable-dk" style="background:var(--blue-800);border-radius:12px;overflow:hidden;">
+        <thead><tr><th>Run</th><th>Architecture</th><th>Output rate</th></tr></thead>
+        <tbody>
+          <tr><td>Run 2 (≤2018)</td><td>L0 hardware + HLT1 + HLT2</td><td style="font-family:var(--font-mono);font-size:24px;color:var(--blue-300);">12.5 kHz</td></tr>
+          <tr style="background:var(--blue-700);">
+            <td style="color:var(--gold-300);">Run 3 (now)</td>
+            <td style="color:var(--neutral-0);">No hardware trigger — <strong style="color:var(--gold-400);">fully software at 30 MHz</strong></td>
+            <td style="font-family:var(--font-mono);font-size:24px;color:var(--gold-400);">~2 MHz</td>
+          </tr>
+        </tbody>
+      </table>
+      <ul class="bullets bullets-lt bullets-sm">
+        <li>GPU-based real-time reconstruction (<strong style="color:var(--neutral-0);">Allen framework</strong>)</li>
+        <li><strong style="color:var(--neutral-0);">First LHC experiment</strong> with a fully software trigger</li>
+        <li>Possible: lower luminosity, simpler geometry, GPUs</li>
+      </ul>
+    </div>
+  </div>
+  <img src="assets/intrepid-logo-white.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  13 · ALLEN: GPU TRIGGER
+══════════════════════════════════════════════════════════════ -->
+<section data-label="Heterogeneous computing comes to the trigger" class="slide-dark pad">
+  <div class="slide-header f1">
+    <span class="eyebrow eyebrow-lt">Case Study 2 · Allen</span>
+    <h2 class="slide-title-lt">Heterogeneous computing comes to the trigger</h2>
+    <div class="title-rule-lt"></div>
+  </div>
+  <div class="two-col f2" style="align-items:start;gap:100px;">
+    <ul class="bullets bullets-lt">
+      <li><strong style="color:var(--neutral-0);">Allen</strong> is LHCb's GPU-based first-stage software trigger (HLT1)</li>
+      <li>Runs on <span style="font-family:var(--font-mono);color:var(--gold-300);">~500 NVIDIA GPUs</span> (A100/H100 class)</li>
+      <li>Reconstructs VELO tracks in <span style="font-family:var(--font-mono);color:var(--gold-300);">~500 μs</span> per event</li>
+      <li>Finds primary vertices, selects displaced tracks</li>
+      <li>Rate reduction: <span style="font-family:var(--font-mono);color:var(--gold-400);font-weight:700;">40 MHz → ~1 MHz</span></li>
+      <li>Open-source framework, influential beyond LHCb</li>
+    </ul>
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      <p style="font-family:var(--font-mono);font-size:24px;color:var(--blue-300);letter-spacing:.08em;text-transform:uppercase;">Allen HLT1 pipeline</p>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="background:var(--blue-800);border-radius:10px;padding:20px 32px;font-size:28px;color:var(--neutral-0);border-left:3px solid var(--gold-400);">Raw detector data — 30 MHz, full readout</div>
+        <div style="display:flex;justify-content:center;"><span style="font-size:28px;color:var(--blue-600);">↓ GPU parallel decode</span></div>
+        <div style="background:var(--blue-800);border-radius:10px;padding:20px 32px;font-size:28px;color:var(--neutral-0);border-left:3px solid var(--gold-400);">VELO track reconstruction</div>
+        <div style="display:flex;justify-content:center;"><span style="font-size:28px;color:var(--blue-600);">↓ primary vertex finding</span></div>
+        <div style="background:var(--blue-800);border-radius:10px;padding:20px 32px;font-size:28px;color:var(--neutral-0);border-left:3px solid var(--gold-400);">Displaced track / vertex selection</div>
+        <div style="display:flex;justify-content:center;"><span style="font-size:28px;color:var(--blue-600);">↓</span></div>
+        <div style="background:var(--blue-700);border-radius:10px;padding:20px 32px;font-size:28px;color:var(--gold-400);font-weight:600;border:2px solid var(--gold-400);">Output ~1 MHz → HLT2 (CPU farm)</div>
+      </div>
+    </div>
+  </div>
+  <img src="assets/intrepid-logo-white.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  14 · ALICE
+══════════════════════════════════════════════════════════════ -->
+<section data-label="Heavy-ion collisions — the extreme case" class="pad">
+  <div class="slide-header f1">
+    <span class="eyebrow">Case Study 3</span>
+    <h2 class="slide-title">Heavy-ion collisions — the extreme case</h2>
+    <div class="title-rule"></div>
+  </div>
+  <div class="two-col f2" style="align-items:start;gap:80px;">
+    <div style="display:flex;flex-direction:column;gap:28px;">
+      <ul class="bullets">
+        <li>ALICE studies the <strong>Quark-Gluon Plasma (QGP)</strong> in Pb-Pb collisions — very different physics</li>
+        <li>Pb-Pb: event size <span style="font-family:var(--font-mono);color:var(--blue-600);">~100× larger</span> than pp, but collision rate much lower (~10 kHz in Pb runs)</li>
+        <li>Run 3 upgrade: <strong>continuous readout</strong> at 50 kHz minimum bias, no hardware trigger for most detectors</li>
+        <li><strong>Online-Offline (O²) framework</strong>: compression, online calibration and reconstruction</li>
+        <li>For Pb-Pb: essentially <strong>record everything</strong>, compress online, select later</li>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:28px;justify-content:center;">
+      <div style="background:var(--blue-50);border-radius:14px;padding:44px;border:1px solid var(--blue-200);display:flex;flex-direction:column;gap:24px;">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <span style="font-family:var(--font-mono);font-size:24px;color:var(--blue-600);letter-spacing:.08em;text-transform:uppercase;">Pb-Pb event size</span>
+          <div style="display:flex;align-items:baseline;gap:12px;">
+            <span style="font-family:var(--font-display);font-size:80px;font-weight:700;color:var(--blue-600);line-height:1;">100×</span>
+            <span style="font-size:28px;color:var(--text-muted);">larger than pp</span>
+          </div>
+        </div>
+        <hr style="border-color:var(--blue-200);">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <span style="font-family:var(--font-mono);font-size:24px;color:var(--blue-600);letter-spacing:.08em;text-transform:uppercase;">TPC continuous readout</span>
+          <div style="display:flex;align-items:baseline;gap:12px;">
+            <span style="font-family:var(--font-display);font-size:80px;font-weight:700;color:var(--blue-600);line-height:1;">50 kHz</span>
+            <span style="font-size:28px;color:var(--text-muted);">minimum bias</span>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--neutral-50);border-radius:12px;padding:28px;border:1px solid var(--neutral-200);">
+        <p style="font-size:28px;color:var(--text-body);line-height:1.5;">A completely different trigger philosophy — driven entirely by the physics of heavy-ion collisions.</p>
+      </div>
+    </div>
+  </div>
+  <img src="assets/intrepid-logo.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  15 · TRIGGER EFFICIENCY & BIAS
+══════════════════════════════════════════════════════════════ -->
+<section data-label="What the trigger does to your measurement" class="slide-light pad">
+  <div class="slide-header f1">
+    <span class="eyebrow">Physics Impact</span>
+    <h2 class="slide-title">What the trigger does to your measurement</h2>
+    <div class="title-rule"></div>
+  </div>
+  <div class="two-col f2" style="align-items:start;gap:100px;">
+    <ul class="bullets">
+      <li>Every trigger introduces <strong>efficiency</strong> (signal kept) and <strong>bias</strong> (shape distortion)</li>
+      <li>A p<sub>T</sub> threshold creates a sharp <strong>turn-on curve</strong> — must be measured in data</li>
+      <li><strong>Tag-and-probe method:</strong> use clean samples (J/ψ→μμ, Z→ℓℓ) to measure trigger efficiency in situ</li>
+      <li>Efficiency corrections applied as <strong>per-event weights</strong> in analyses</li>
+      <li><strong>Trigger bias</strong> can distort distributions: e.g. isolation requirement changes jet activity near lepton</li>
+    </ul>
+    <div style="display:flex;flex-direction:column;gap:28px;justify-content:center;">
+      <!-- Schematic turn-on curve -->
+      <div style="background:var(--neutral-0);border-radius:14px;padding:44px;box-shadow:var(--shadow-sm);border:1px solid var(--neutral-200);">
+        <p style="font-family:var(--font-mono);font-size:24px;color:var(--blue-600);letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px;">Schematic turn-on curve</p>
+        <svg viewBox="0 0 400 200" style="width:100%;height:auto;">
+          <defs>
+            <linearGradient id="gr1" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#0094de" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#0094de" stop-opacity="0.05"/>
+            </linearGradient>
+          </defs>
+          <!-- axes -->
+          <line x1="40" y1="10" x2="40" y2="170" stroke="#c4ccd6" stroke-width="1.5"/>
+          <line x1="40" y1="170" x2="390" y2="170" stroke="#c4ccd6" stroke-width="1.5"/>
+          <!-- axis labels -->
+          <text x="200" y="197" font-family="IBM Plex Mono" font-size="16" fill="#6b7686" text-anchor="middle">p_T  [GeV]</text>
+          <text x="12" y="95" font-family="IBM Plex Mono" font-size="16" fill="#6b7686" text-anchor="middle" transform="rotate(-90,12,95)">ε</text>
+          <!-- efficiency=1 line -->
+          <line x1="40" y1="30" x2="380" y2="30" stroke="#e2ad07" stroke-width="1" stroke-dasharray="6,4"/>
+          <text x="385" y="35" font-family="IBM Plex Mono" font-size="14" fill="#e2ad07">1.0</text>
+          <!-- turn-on curve using path -->
+          <path d="M40 170 Q 120 170 160 100 Q 190 40 230 32 L 390 30"
+                fill="none" stroke="#0094de" stroke-width="2.5"/>
+          <!-- threshold marker -->
+          <line x1="140" y1="30" x2="140" y2="170" stroke="#d83a3a" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <text x="148" y="160" font-family="IBM Plex Mono" font-size="15" fill="#d83a3a">threshold</text>
+          <!-- plateau label -->
+          <text x="265" y="24" font-family="IBM Plex Mono" font-size="15" fill="#0094de">plateau</text>
+        </svg>
+      </div>
+      <div class="quote-block" style="border-color:var(--blue-400);">
+        <p class="quote-text">You cannot publish a cross-section measurement without understanding your trigger efficiency. It's not optional.</p>
+      </div>
+    </div>
+  </div>
+  <img src="assets/intrepid-logo.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  16 · TRIGGER-LEVEL ANALYSIS & DATA SCOUTING
+══════════════════════════════════════════════════════════════ -->
+<section data-label="When you can't afford the full event" class="pad">
+  <div class="slide-header f1">
+    <span class="eyebrow">Physics Impact</span>
+    <h2 class="slide-title">When you can't afford the full event</h2>
+    <div class="title-rule"></div>
+  </div>
+  <div class="two-col f2" style="align-items:start;gap:80px;">
+    <div style="display:flex;flex-direction:column;gap:28px;">
+      <p style="font-size:var(--type-body);line-height:1.5;color:var(--text-body);">For some physics (e.g. dijet resonances at low mass), rates are too high to store full events. Solution: store only trigger-level objects.</p>
+      <div style="display:flex;gap:40px;align-items:center;">
+        <div style="display:flex;flex-direction:column;gap:6px;text-align:center;">
+          <span style="font-family:var(--font-mono);font-size:26px;font-weight:700;color:var(--blue-600);">~few kB</span>
+          <span style="font-size:24px;color:var(--text-muted);">per event (scouting)</span>
+        </div>
+        <span style="font-size:44px;color:var(--neutral-300);">vs</span>
+        <div style="display:flex;flex-direction:column;gap:6px;text-align:center;">
+          <span style="font-family:var(--font-mono);font-size:26px;font-weight:700;color:var(--text-muted);">~1.5 MB</span>
+          <span style="font-size:24px;color:var(--text-muted);">per event (full)</span>
+        </div>
+      </div>
+      <table class="dtable" style="background:var(--neutral-0);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm);">
+        <thead><tr><th>Experiment</th><th>Name</th><th>Rate accessible</th></tr></thead>
+        <tbody>
+          <tr><td>ATLAS</td><td>Trigger-Level Analysis (TLA)</td><td style="font-family:var(--font-mono);color:var(--blue-600);font-size:24px;">O(MHz)</td></tr>
+          <tr><td>CMS</td><td>Data Scouting</td><td style="font-family:var(--font-mono);color:var(--blue-600);font-size:24px;">O(MHz)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px;">
+      <div style="background:var(--blue-50);border-radius:14px;padding:40px;border:1px solid var(--blue-200);">
+        <p style="font-family:var(--font-mono);font-size:24px;color:var(--blue-600);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;">Physics targets</p>
+        <ul class="bullets bullets-sm">
+          <li>Searches at <strong>lower mass thresholds</strong> with huge statistics</li>
+          <li>Dark sector: dark photons, light dijet resonances</li>
+        </ul>
+      </div>
+      <div style="background:var(--neutral-50);border-radius:12px;padding:32px;border:1px solid var(--neutral-200);">
+        <p style="font-family:var(--font-mono);font-size:24px;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;">Trade-off</p>
+        <p style="font-size:28px;color:var(--text-body);line-height:1.4;">No offline reconstruction, limited systematic control</p>
+      </div>
+    </div>
+  </div>
+  <img src="assets/intrepid-logo.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  17 · ML IN THE TRIGGER
+══════════════════════════════════════════════════════════════ -->
+<section data-label="The new frontier" class="slide-dark pad">
+  <div class="slide-header f1">
+    <span class="eyebrow eyebrow-lt">ML &amp; Frontier</span>
+    <h2 class="slide-title-lt">The new frontier</h2>
+    <div class="title-rule-lt"></div>
+  </div>
+  <div class="two-col f2" style="align-items:start;gap:80px;">
+    <div style="display:flex;flex-direction:column;gap:28px;">
+      <p style="font-size:var(--type-body);color:var(--blue-100);line-height:1.5;">ML has transformed the HLT in the last ~5 years:</p>
+      <ul class="bullets bullets-lt">
+        <li><strong style="color:var(--neutral-0);">b-tagging at HLT:</strong> deep NNs (ParticleNet, DeepJet variants) deployed in production</li>
+        <li><strong style="color:var(--neutral-0);">τ identification:</strong> BDTs and DNNs → crucial for H→ττ triggers</li>
+        <li><strong style="color:var(--neutral-0);">Anomaly detection:</strong> model-agnostic triggers — CMS AXOL1TL autoencoder <em style="font-style:normal;color:var(--gold-300);">at L1</em>, running on FPGAs</li>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px;">
+      <div style="background:var(--blue-800);border-radius:14px;padding:40px;border:1px solid var(--blue-700);display:flex;flex-direction:column;gap:20px;">
+        <p style="font-family:var(--font-mono);font-size:24px;color:var(--blue-300);letter-spacing:.08em;text-transform:uppercase;">hls4ml — Fast ML on FPGAs</p>
+        <p style="font-size:28px;color:var(--blue-100);line-height:1.4;">Framework to compile NNs directly to FPGA firmware</p>
+        <div style="display:flex;align-items:baseline;gap:12px;">
+          <span style="font-family:var(--font-display);font-size:80px;font-weight:700;color:var(--gold-400);line-height:1;">~50 ns</span>
+          <span style="font-size:28px;color:var(--blue-300);">inference latency</span>
+        </div>
+        <p style="font-size:26px;color:var(--gold-300);">Compatible with Level-1!</p>
+      </div>
+      <div style="background:var(--blue-700);border-radius:12px;padding:32px;border:1px solid var(--blue-600);">
+        <p style="font-size:28px;color:var(--neutral-0);line-height:1.5;font-weight:600;">Open question: Can we trigger on "something unusual" without knowing what we're looking for?</p>
+      </div>
+    </div>
+  </div>
+  <img src="assets/intrepid-logo-white.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  18 · HL-LHC CHALLENGES
+══════════════════════════════════════════════════════════════ -->
+<section data-label="The trigger problem gets harder" class="slide-dark pad">
+  <div class="slide-header f1">
+    <span class="eyebrow eyebrow-lt">ML &amp; Frontier</span>
+    <h2 class="slide-title-lt">The trigger problem gets harder</h2>
+    <div class="title-rule-lt"></div>
+  </div>
+  <div class="two-col f2" style="align-items:start;gap:80px;">
+    <div style="display:flex;flex-direction:column;gap:28px;">
+      <div style="background:var(--blue-800);border-radius:14px;padding:40px;border:2px solid var(--gold-400);display:flex;flex-direction:column;gap:16px;">
+        <span style="font-family:var(--font-mono);font-size:24px;color:var(--gold-300);letter-spacing:.08em;text-transform:uppercase;">HL-LHC (starting ~2029)</span>
+        <div style="display:flex;gap:48px;align-items:flex-end;">
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <span style="font-family:var(--font-display);font-size:80px;font-weight:700;color:var(--gold-400);line-height:1;">5–7×</span>
+            <span style="font-size:26px;color:var(--blue-200);">luminosity increase</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <span style="font-family:var(--font-display);font-size:80px;font-weight:700;color:var(--gold-400);line-height:1;">~200</span>
+            <span style="font-size:26px;color:var(--blue-200);">pileup interactions</span>
+          </div>
+        </div>
+        <p style="font-size:28px;color:var(--blue-100);line-height:1.4;">Current trigger architectures break — L1 rates and HLT CPU time both explode.</p>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:24px;">
+      <p style="font-family:var(--font-mono);font-size:24px;color:var(--blue-300);letter-spacing:.08em;text-transform:uppercase;">Phase-2 upgrades (ATLAS + CMS)</p>
+      <table class="dtable dtable-dk" style="background:var(--blue-800);border-radius:12px;overflow:hidden;">
+        <thead><tr><th>Upgrade</th><th>Experiment</th><th>What it enables</th></tr></thead>
+        <tbody>
+          <tr><td>L1 Track Trigger</td><td>CMS</td><td>Silicon tracker info at 40 MHz in FPGAs</td></tr>
+          <tr><td>Hardware Track Trigger (HTT)</td><td>ATLAS</td><td>Fast track finding at L1</td></tr>
+          <tr><td>Isolated leptons at L1</td><td>Both</td><td>Lower p<sub>T</sub> thresholds, b-jets at L1</td></tr>
+        </tbody>
+      </table>
+      <div style="background:var(--blue-700);border-radius:12px;padding:28px;border:1px solid var(--blue-600);">
+        <p style="font-size:28px;color:var(--blue-100);line-height:1.4;">DAQ bandwidth: <span style="font-family:var(--font-mono);color:var(--gold-400);">O(100 Tb/s)</span> — requires entirely new network infrastructure</p>
+      </div>
+    </div>
+  </div>
+  <img src="assets/intrepid-logo-white.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  19 · KEY TAKEAWAYS
+══════════════════════════════════════════════════════════════ -->
+<section data-label="What to remember" class="slide-dark pad">
+  <div class="slide-header f1">
+    <span class="eyebrow eyebrow-lt">Summary</span>
+    <h2 class="slide-title-lt">What to remember</h2>
+    <div class="title-rule-lt"></div>
+  </div>
+  <ol class="numbered f2" style="max-width:1650px;">
+    <li>The trigger is <strong style="color:var(--neutral-0);">not optional</strong> — LHC data rates exceed recordable capacity by ~10<sup>5</sup></li>
+    <li>The solution is <strong style="color:var(--neutral-0);">layered</strong>: fast hardware (L1) + slower software (HLT), each doing what it does best</li>
+    <li>Different experiments have <strong style="color:var(--neutral-0);">radically different</strong> trigger philosophies driven by their physics goals</li>
+    <li>The trigger <strong style="color:var(--neutral-0);">shapes your physics</strong>: efficiency, bias and thresholds matter as much as detector resolution</li>
+    <li>ML and heterogeneous computing (GPUs, FPGAs) are <strong style="color:var(--neutral-0);">transforming</strong> real-time data processing</li>
+    <li>HL-LHC will require <strong style="color:var(--neutral-0);">another generation</strong> of trigger innovation</li>
+  </ol>
+  <img src="assets/intrepid-logo-white.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  20 · Q&A / DISCUSSION
+══════════════════════════════════════════════════════════════ -->
+<section data-label="Things worth arguing about" class="slide-mid pad">
+  <div class="slide-header f1">
+    <span class="eyebrow eyebrow-lt">Discussion</span>
+    <h2 class="slide-title-lt">Things worth arguing about</h2>
+    <div class="title-rule-lt"></div>
+  </div>
+  <div class="two-col f2" style="align-items:stretch;gap:40px;">
+    <div style="display:flex;flex-direction:column;gap:28px;">
+      <div style="background:var(--blue-800);border-radius:14px;padding:36px;border-left:4px solid var(--gold-400);display:flex;flex-direction:column;gap:12px;">
+        <p style="font-size:30px;font-style:italic;color:var(--neutral-0);line-height:1.4;">"If you had infinite bandwidth, would you still want a trigger?"</p>
+        <p style="font-size:24px;color:var(--blue-300);">→ online calibration, data quality, computing models</p>
+      </div>
+      <div style="background:var(--blue-800);border-radius:14px;padding:36px;border-left:4px solid var(--gold-400);display:flex;flex-direction:column;gap:12px;">
+        <p style="font-size:30px;font-style:italic;color:var(--neutral-0);line-height:1.4;">"LHCb removed the hardware trigger. Should everyone?"</p>
+        <p style="font-size:24px;color:var(--blue-300);">→ luminosity dependence, detector geometry, GPU scalability</p>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:28px;">
+      <div style="background:var(--blue-800);border-radius:14px;padding:36px;border-left:4px solid var(--gold-400);display:flex;flex-direction:column;gap:12px;">
+        <p style="font-size:30px;font-style:italic;color:var(--neutral-0);line-height:1.4;">"Should the trigger be physics-model-agnostic?"</p>
+        <p style="font-size:24px;color:var(--blue-300);">→ anomaly detection — what does "unusual" mean at a collider?</p>
+      </div>
+      <div style="background:var(--blue-800);border-radius:14px;padding:36px;border-left:4px solid var(--gold-400);display:flex;flex-direction:column;gap:12px;">
+        <p style="font-size:30px;font-style:italic;color:var(--neutral-0);line-height:1.4;">"Who owns the trigger menu — the detector team or the physics analysts?"</p>
+        <p style="font-size:24px;color:var(--blue-300);">→ governance, prescale decisions, rare process protection</p>
+      </div>
+    </div>
+  </div>
+  <img src="assets/intrepid-logo-white.png" class="logo">
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+  21 · THANK YOU / FUNDING
+══════════════════════════════════════════════════════════════ -->
+<section data-label="Thank you" class="slide-dark"
+  style="padding:80px var(--pad-x); justify-content:space-between; align-items:stretch;">
+  <div style="display:flex;align-items:center;gap:24px;" class="f1">
+    <img src="assets/intrepid-logo-white.png" style="height:46px;opacity:.9;">
+    <div style="width:1px;height:36px;background:var(--blue-700)"></div>
+    <span style="font-family:var(--font-mono);font-size:24px;color:var(--blue-400);letter-spacing:.07em;text-transform:uppercase;">CPAN PhD Network</span>
+  </div>
+  <div class="f2" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;text-align:center;flex:1;">
+    <h2 style="font-family:var(--font-display);font-size:80px;font-weight:700;color:var(--neutral-0);letter-spacing:-.02em;">Thank you</h2>
+    <div style="width:80px;height:4px;background:var(--gold-400);border-radius:2px;"></div>
+    <p style="font-size:32px;color:var(--blue-200);max-width:900px;line-height:1.5;">Questions, comments, and arguments about trigger menus all welcome.</p>
+    <div style="display:flex;gap:32px;margin-top:12px;flex-wrap:wrap;justify-content:center;">
+      <span style="font-family:var(--font-mono);font-size:24px;color:var(--blue-400);">ATLAS Trigger/DAQ TDR: CERN-LHCC-2017-020</span>
+      <span style="color:var(--blue-700);">·</span>
+      <span style="font-family:var(--font-mono);font-size:24px;color:var(--blue-400);">Allen: Comput.Softw.Big Sci. 4 (2020) 7</span>
+      <span style="color:var(--blue-700);">·</span>
+      <span style="font-family:var(--font-mono);font-size:24px;color:var(--blue-400);">hls4ml: JINST 13 (2018) P07027</span>
+    </div>
+  </div>
+  <div class="f3" style="display:flex;align-items:center;justify-content:flex-end;">
+    <img src="assets/erc-eu-funding.png" style="height:64px;opacity:.9;">
+  </div>
+</section>
+
+</deck-stage>
+
+<script src="deck-stage.js"></script>
+
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#E2AD07",
+  "darkSlideBase": "#082739",
+  "fontSize": 34
+}/*EDITMODE-END*/;
+
+function TweaksApp() {
+  const [t, setTweak] = window.useTweaks(TWEAK_DEFAULTS);
+
+  React.useEffect(() => {
+    document.documentElement.style.setProperty('--accent', t.accentColor);
+    document.documentElement.style.setProperty('--gold-400', t.accentColor);
+    document.documentElement.style.setProperty('--blue-950', t.darkSlideBase);
+    document.documentElement.style.setProperty('--type-body', t.fontSize + 'px');
+  }, [t]);
+
+  return React.createElement(window.TweaksPanel, null,
+    React.createElement(window.TweakSection, {label: "Accent color"}),
+    React.createElement(window.TweakColor, {
+      label: "Gold accent",
+      value: t.accentColor,
+      options: ["#E2AD07", "#F97316", "#22C55E", "#A855F7"],
+      onChange: v => setTweak("accentColor", v)
+    }),
+    React.createElement(window.TweakSection, {label: "Dark slides"}),
+    React.createElement(window.TweakColor, {
+      label: "Dark background",
+      value: t.darkSlideBase,
+      options: ["#082739", "#0e1a2e", "#1a1a2e", "#0f172a"],
+      onChange: v => setTweak("darkSlideBase", v)
+    }),
+    React.createElement(window.TweakSection, {label: "Type scale"}),
+    React.createElement(window.TweakSlider, {
+      label: "Body text size",
+      value: t.fontSize, min: 26, max: 42, step: 2, unit: "px",
+      onChange: v => setTweak("fontSize", v)
+    })
+  );
+}
+
+const tweaksRoot = document.createElement('div');
+document.body.appendChild(tweaksRoot);
+ReactDOM.createRoot(tweaksRoot).render(React.createElement(TweaksApp));
+</script>
+</body>
+</html>

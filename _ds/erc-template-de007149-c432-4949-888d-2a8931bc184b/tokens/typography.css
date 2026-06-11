@@ -1,0 +1,53 @@
+/* ============================================================
+   INTREPID — Typography tokens
+   Display: Space Grotesk (geometric, technical — echoes the chip motif)
+   Text/UI: IBM Plex Sans (scientific, neutral, highly legible)
+   Mono:    IBM Plex Mono (data, specs, formulae, code)
+   ============================================================ */
+:root {
+  /* Families */
+  --font-display: "Space Grotesk", "IBM Plex Sans", system-ui, sans-serif;
+  --font-sans:    "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Weights */ /* @kind other */
+  --fw-regular:   400;
+  --fw-medium:    500;
+  --fw-semibold:  600;
+  --fw-bold:      700;
+
+  /* Type scale (1.250 major-third-ish, tuned) */
+  --fs-xs:    0.75rem;   /* 12 */
+  --fs-sm:    0.875rem;  /* 14 */
+  --fs-base:  1rem;      /* 16 */
+  --fs-md:    1.125rem;  /* 18 */
+  --fs-lg:    1.375rem;  /* 22 */
+  --fs-xl:    1.75rem;   /* 28 */
+  --fs-2xl:   2.25rem;   /* 36 */
+  --fs-3xl:   3rem;      /* 48 */
+  --fs-4xl:   3.75rem;   /* 60 */
+  --fs-5xl:   4.75rem;   /* 76 */
+
+  /* Line heights */ /* @kind other */
+  --lh-tight:   1.05;
+  --lh-snug:    1.2;
+  --lh-normal:  1.5;
+  --lh-relaxed: 1.65;
+
+  /* Letter spacing */ /* @kind other */
+  --ls-tighter: -0.03em;
+  --ls-tight:   -0.015em;
+  --ls-normal:  0em;
+  --ls-wide:    0.04em;
+  --ls-wider:   0.12em;   /* eyebrows / overlines */
+
+  /* Semantic roles */
+  --text-display:  var(--fw-bold) var(--fs-4xl)/var(--lh-tight) var(--font-display);
+  --text-h1:       var(--fw-bold) var(--fs-3xl)/var(--lh-snug) var(--font-display);
+  --text-h2:       var(--fw-semibold) var(--fs-2xl)/var(--lh-snug) var(--font-display);
+  --text-h3:       var(--fw-semibold) var(--fs-xl)/var(--lh-snug) var(--font-display);
+  --text-h4:       var(--fw-semibold) var(--fs-lg)/var(--lh-snug) var(--font-sans);
+  --text-lead:     var(--fw-regular) var(--fs-md)/var(--lh-relaxed) var(--font-sans);
+  --text-body-role:var(--fw-regular) var(--fs-base)/var(--lh-normal) var(--font-sans);
+  --text-small:    var(--fw-regular) var(--fs-sm)/var(--lh-normal) var(--font-sans);
+}

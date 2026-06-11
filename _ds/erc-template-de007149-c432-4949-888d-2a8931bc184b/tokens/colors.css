@@ -1,0 +1,107 @@
+/* ============================================================
+   INTREPID — Color tokens
+   Brand: primary blue #0094DE, gold/amber #E2AD07, on white.
+   Scientific / engineering / professional. Cool slate neutrals.
+   ============================================================ */
+:root {
+  /* ---- Brand: Blue (the INTREPID chip) ---- */
+  --blue-50:  #eaf6fd;
+  --blue-100: #cfeafb;
+  --blue-200: #9fd6f6;
+  --blue-300: #5cbaf0;
+  --blue-400: #1fa3e8;
+  --blue-500: #0094de;   /* BRAND PRIMARY */
+  --blue-600: #007bbd;
+  --blue-700: #006097;
+  --blue-800: #0a4d73;
+  --blue-900: #0e3d59;
+  --blue-950: #082739;
+
+  /* ---- Brand: Gold / amber (the circuit traces) ---- */
+  --gold-50:  #fdf7e4;
+  --gold-100: #faecbc;
+  --gold-200: #f4d877;
+  --gold-300: #ecc23c;
+  --gold-400: #e2ad07;   /* BRAND ACCENT */
+  --gold-500: #c49305;
+  --gold-600: #9c7204;
+  --gold-700: #76560c;
+  --gold-800: #5d4410;
+  --gold-900: #4a3712;
+
+  /* ---- Neutrals: cool slate, paired to the blue ---- */
+  --neutral-0:   #ffffff;
+  --neutral-25:  #fbfcfd;
+  --neutral-50:  #f5f7fa;
+  --neutral-100: #eceff3;
+  --neutral-200: #dde3ea;
+  --neutral-300: #c4ccd6;
+  --neutral-400: #9aa4b2;
+  --neutral-500: #6b7686;
+  --neutral-600: #4d5666;
+  --neutral-700: #353d4a;
+  --neutral-800: #232a34;
+  --neutral-900: #131820;   /* ink */
+
+  /* ---- Semantic status ---- */
+  --green-50:  #e9f7ef;
+  --green-500: #1f9d57;
+  --green-600: #167a43;
+  --red-50:    #fdecec;
+  --red-500:   #d83a3a;
+  --red-600:   #b22a2a;
+  --amber-50:  #fdf3e0;
+  --amber-500: #d9870c;
+
+  /* ============================================================
+     SEMANTIC ALIASES — reach for these in components & layouts
+     ============================================================ */
+
+  /* Brand */
+  --brand:            var(--blue-500);
+  --brand-strong:     var(--blue-700);
+  --brand-soft:       var(--blue-50);
+  --brand-on:         var(--neutral-0);   /* text/icon on brand fill */
+  --accent:           var(--gold-400);
+  --accent-strong:    var(--gold-600);
+  --accent-soft:      var(--gold-50);
+  --accent-on:        var(--neutral-900);
+
+  /* Text */
+  --text-strong:      var(--neutral-900);
+  --text-body:        var(--neutral-700);
+  --text-muted:       var(--neutral-500);
+  --text-subtle:      var(--neutral-400);
+  --text-on-brand:    var(--neutral-0);
+  --text-link:        var(--blue-600);
+  --text-link-hover:  var(--blue-700);
+
+  /* Surfaces */
+  --surface-page:     var(--neutral-0);
+  --surface-raised:   var(--neutral-0);
+  --surface-sunken:   var(--neutral-50);
+  --surface-card:     var(--neutral-0);
+  --surface-inverse:  var(--blue-900);
+  --surface-inverse-2:var(--blue-950);
+  --surface-accent:   var(--brand-soft);
+
+  /* Borders & dividers */
+  --border-subtle:    var(--neutral-200);
+  --border-default:   var(--neutral-300);
+  --border-strong:    var(--neutral-400);
+  --border-brand:     var(--blue-500);
+  --divider:          var(--neutral-200);
+
+  /* Focus ring */
+  --focus-ring:       color-mix(in srgb, var(--blue-500) 45%, transparent);
+
+  /* Status */
+  --success:          var(--green-500);
+  --success-soft:     var(--green-50);
+  --danger:           var(--red-500);
+  --danger-soft:      var(--red-50);
+  --warning:          var(--amber-500);
+  --warning-soft:     var(--amber-50);
+  --info:             var(--blue-500);
+  --info-soft:        var(--blue-50);
+}
